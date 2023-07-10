@@ -48,7 +48,8 @@ class MyWindow(Gtk.Window):
             button.set_image(image)
             button.set_size_request(size, size)
             button.set_tooltip_text(l.name)
-            button.connect("clicked", lambda widget: launcher_button(widget, l.command))
+            button.connect("clicked", launcher_button, l.command)
+
 
             self.box.pack_start(button, True, True, 0)
 
