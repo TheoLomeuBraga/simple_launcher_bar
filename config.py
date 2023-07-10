@@ -6,6 +6,6 @@ size = 64
 
 launchers = [
     Launcher("firefox","firefox","firefox"),
-    Launcher("firefox2","firefox","firefox"),
-    Launcher("firefox3","firefox","firefox"),
+    Launcher("dolphin ( file manager )","xfce-filemanager","dolphin"),
+    Launcher("terminal ( an terminal emulator )","terminal","konsole"),
 ]

@@ -5,6 +5,8 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gio, GdkPixbuf
 
+import os
+
 
 def resize_icon(icon_name, width, height):
     # Create a themed icon
@@ -23,6 +25,9 @@ def resize_icon(icon_name, width, height):
         return scaled_pixbuf
 
     return None
+
+def launcher_button(widget, argument):
+    os.system(argument)
 
 class MyWindow(Gtk.Window):
     def __init__(self):
@@ -43,6 +48,7 @@ class MyWindow(Gtk.Window):
             button.set_image(image)
             button.set_size_request(size, size)
             button.set_tooltip_text(l.name)
+            button.connect("clicked", lambda widget: launcher_button(widget, l.command))
 
             self.box.pack_start(button, True, True, 0)
 
