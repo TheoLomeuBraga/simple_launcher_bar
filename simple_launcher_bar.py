@@ -27,7 +27,7 @@ def resize_icon(icon_name, width, height):
     return None
 
 def launcher_button(widget, argument):
-    os.system(argument)
+    os.system(argument + " &")
 
 class MyWindow(Gtk.Window):
     def __init__(self):
@@ -40,6 +40,8 @@ class MyWindow(Gtk.Window):
             self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
 
         self.add(self.box)
+
+        self.commands = []
 
         for l in launchers:
             image = Gtk.Image.new_from_gicon(resize_icon(l.icon,size,size), Gtk.IconSize.BUTTON)
