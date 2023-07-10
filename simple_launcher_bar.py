@@ -3,7 +3,7 @@ from config import *
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gio, GdkPixbuf
+from gi.repository import Gtk, Gio, GdkPixbuf, Gdk
 
 import os
 
@@ -29,15 +29,35 @@ def resize_icon(icon_name, width, height):
 def launcher_button(widget, argument):
     os.system(argument + " &")
 
+def getResolution():
+    ret = [0,0]
+    screen = Gdk.Screen.get_default()
+    monitor = screen.get_monitor_at_window(screen.get_active_window())
+    geometry = screen.get_monitor_geometry(monitor)
+    ret[0] = geometry.width
+    ret[1] = geometry.height
+    return ret
+
 class MyWindow(Gtk.Window):
+
     def __init__(self):
         Gtk.Window.__init__(self, title="launchers")
 
-        # Create a vertical box to hold the buttons
-        if side == Sides.LEFT or side == Sides.RIGHT:
+        resolution = getResolution()
+        
+
+        if side == Sides.LEFT:
             self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        elif side == Sides.TOP or side == Sides.DOWN:
+            self.move(0, (resolution[1] / 2) - ((size * len(launchers)) / 2))
+        if side == Sides.RIGHT:
+            self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            self.move(resolution[0] - size ,(resolution[1] / 2) - ((size * len(launchers)) / 2))
+        if side == Sides.TOP:
             self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+            self.move((resolution[0] / 2) - ((size * len(launchers)) / 2), 0)
+        if side == Sides.DOWN:
+            self.box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+            self.move((resolution[0] / 2) - ((size * len(launchers)) / 2),resolution[1] - size )
 
         self.add(self.box)
 
