@@ -41,8 +41,6 @@ class MyWindow(Gtk.Window):
 
         self.add(self.box)
 
-        self.commands = []
-
         for l in launchers:
             image = Gtk.Image.new_from_gicon(resize_icon(l.icon,size,size), Gtk.IconSize.BUTTON)
 
